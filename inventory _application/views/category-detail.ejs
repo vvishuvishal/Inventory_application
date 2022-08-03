@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <title><%= title %></title>
+</head>
+<body>
+  <% if (data.length <= 0) { %>
+    <h1>
+      No Category Items
+    </h1>
+    <h2>There is no data. Please add items</h2>
+    <a href="/catalog/item/create"> Create an item</a>
+  <% } else { %>
+    <h1>
+      <%= title %> Category Details
+    </h1>
+    <table class="table my-4 mx-4">
+      <tr>
+        <th>Item Name</th>
+        <th>Category</th>
+        <th>Price (dollar $)</th>
+        <th>Number In Stock (kg)</th>
+      </tr>
+      <% for (const item of data) { %>
+        <tr>
+          <td><a href="<%= item.url %>"><%= item.name %></a></td>
+          <td><%= item.category.name %></td>
+          <td><%= item.price %></td>
+          <td><%= item.number_in_stock%></td>
+        </tr>
+      <% } %>
+    </table>
+  <% } %>
+
+  <a class="btn btn-primary" href="<%= category.url %>/update"> Update Category </a>
+  <form action="<%= category.url %>/delete" method="POST" style="display:inline">
+    <input type="submit" class="btn btn-danger" name="delete" value="Delete Category" />
+  </form>
+
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>

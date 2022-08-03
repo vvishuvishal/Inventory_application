@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <title>
+    <%= title %>
+  </title>
+</head>
+
+<body>
+
+  <h1>
+    <%= title %>
+  </h1>
+  <form action="/catalog<%= formAction %>" method="POST">
+    <div class="mb-3">
+      <label for="item-name" class="form-label">Item Name: </label>
+      <input id="item-name" class="form-control" type="text" name="itemName" placeholder="Enter Item Name"
+        value="<%= (data !== undefined) ? data.name : `` %>" required>
+    </div>
+    <div class="mb-3">
+      <label for="item-description" class="form-label">Item Description: </label>
+      <input id="item-description" class="form-control" type="text" name="itemDescr"
+        placeholder="Enter Item Description" value="<%= (data !== undefined) ? data.description : `` %>" required>
+    </div>
+    <div class="mb-3">
+      <label for="item-category" class="form-label">Category: </label>
+      <select id="item-category" class="form-select" name="itemCategory" required>
+          <% for (const category of categories) { %>
+            <% if (data !== undefined && category._id.equals(data.category._id)) { %>
+                <option value="<%= category._id %>" selected> <%= category.name %> </option>
+            <% } else { %>
+                <option value="<%= category._id %>"> <%= category.name %> </option>
+          <% } %>
+        <% } %>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="item-price" class="form-label">Item Price (per kg): </label>
+      <input id="item-price" class="form-control" type="number" name="itemPrice" placeholder="Enter Price Of Item (per kg)"
+        value="<%= (data !== undefined) ? data.price : `` %>" required>
+    </div>
+    <div class="mb-3">
+      <label for="item-stock-number" class="form-label">Number In Stock: </label>
+      <input id="item-stock-number" class="form-control" type="number" name="numberInStock" placeholder="Enter Number In Stock"
+        value="<%= (data !== undefined) ? data.number_in_stock : `` %>" required>
+    </div>
+      <input type="submit" class="btn btn-primary my-3" id="submit-btn" value="<%= (updated) ? "Update" : "Submit" %>">
+  </form>
+
+    <% if (errors) { %> 
+      <ul class="list-group">
+        <% for (const err of errors) { %>
+          <li class="list-group-item"> <%= err.message %> </li>
+        <% } %>
+      </ul>  
+    <% } %>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
